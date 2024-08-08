@@ -7,6 +7,11 @@ import { Op } from "sequelize";
 export const listarClientes = async (req: Request, res: Response) => {
   try {
     const clientes = await Cliente.findAll();
+
+    if(clientes.length === 0 ){
+      res.status(404).json({ message: "Nenhum cliente foi encontrado." });
+    }
+    
     res.json({ clientes });
   } catch (error) {
     console.error("Erro ao listar clientes:", error);

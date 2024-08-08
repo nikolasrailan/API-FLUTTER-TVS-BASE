@@ -179,3 +179,14 @@ describe("Teste da Rota atualizarCliente", () => {
     await Cliente.destroy({ where: { id: [clienteId, clienteExistenteId] } });
   });
 });
+
+describe("Teste para retornar status 404 se não houver clientes", () => {
+  it("Deve retornar status 404 e mensagem apropriada se não houver clientes", async () => {
+  
+    const response = await request(app).get("/clientes");
+    expect(response.status).toBe(404);
+
+    expect(response.body).toHaveProperty("message");
+    expect(response.body.message).toBe("Nenhum cliente encontrado");
+  });
+});
